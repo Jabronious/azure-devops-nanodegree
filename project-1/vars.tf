@@ -20,6 +20,11 @@ variable "password" {
 
 variable "vm_count" {
     description = "The number of VM's that are required."
+    default = 2
+    validation {
+      condition     = var.vm_count >= 2 && var.vm_count <= 5
+      error_message = "You need at least 2 VMs and less than or equal to 5."
+    }
 }
 
 variable "environment" {

@@ -36,27 +36,27 @@ resource "azurerm_network_security_group" "main" {
   tags                = local.tags
 
   security_rule {
-    name                       = "AllowVnetInBound"
+    name                       = "AllowInternalVnetTraffic"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
+    source_address_prefix      = "10.0.0.0/24"
+    destination_address_prefix = "10.0.0.0/24"
   }
 
   security_rule {
-    name                       = "AllowVnetOutBound"
+    name                       = "DenyOutboundVnetTraffic"
     priority                   = 101
     direction                  = "Outbound"
-    access                     = "Allow"
+    access                     = "Deny"
     protocol                   = "*"
     source_port_range          = "*"
     destination_port_range     = "*"
-    source_address_prefix      = "VirtualNetwork"
-    destination_address_prefix = "VirtualNetwork"
+    source_address_prefix      = "10.0.0.0/24"
+    destination_address_prefix = "*"
   }
   
   security_rule {
